@@ -1,0 +1,3 @@
+random_seed: 100
+data_path: data/processed/clean_data.csv
+model_path: models/final_model.pkl
