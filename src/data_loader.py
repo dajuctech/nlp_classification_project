@@ -14,3 +14,8 @@ def save_cleaned_data(df, filename="clean_data.csv", folder="data/processed"):
     path = os.path.join(folder, filename)
     df.to_csv(path, index=False)
     print(f"✅ Cleaned data saved to {path}")
+
+if __name__ == "__main__":
+    from src.data_loader import load_raw_data, save_cleaned_data
+    df = load_raw_data()
+    save_cleaned_data(df)

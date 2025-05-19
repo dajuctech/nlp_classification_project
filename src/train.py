@@ -19,6 +19,9 @@ def train_pipeline(input_path="data/processed/clean_data.csv", model_name="SVM")
     if 'cleaned_text' not in df.columns:
         df = preprocess_pipeline(df, input_col="tweet")
 
+    # ✅ Drop rows with missing cleaned_text
+    df = df.dropna(subset=["cleaned_text"])
+
     # Vectorization
     vectorizer = TfidfVectorizer(max_features=5000)
     X = vectorizer.fit_transform(df["cleaned_text"])
@@ -42,9 +45,11 @@ def train_pipeline(input_path="data/processed/clean_data.csv", model_name="SVM")
     print(f"\nAccuracy: {accuracy_score(y_val, y_pred):.4f}")
     print("\nClassification Report:\n", classification_report(y_val, y_pred))
 
-    # Save model
+    # Save model and vectorizer
     dump(model, "models/final_model.pkl")
+    dump(vectorizer, "models/vectorizer.pkl")  # ✅ Save vectorizer for Streamlit
     print("✅ Model saved to models/final_model.pkl")
+    print("✅ Vectorizer saved to models/vectorizer.pkl")
 
 if __name__ == "__main__":
-    train_pipeline()
+    train_pipeline(model_name="SVM")

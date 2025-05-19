@@ -33,3 +33,11 @@ def lemmatize_and_remove_stopwords(text):
 def preprocess_pipeline(df, input_col="tweet", output_col="cleaned_text"):
     df[output_col] = df[input_col].astype(str).apply(clean_text).apply(lemmatize_and_remove_stopwords)
     return df
+
+if __name__ == "__main__":
+    from src.data_loader import load_raw_data, save_cleaned_data
+    from src.preprocessing import preprocess_pipeline
+
+    df = load_raw_data()
+    df = preprocess_pipeline(df, input_col="tweet", output_col="cleaned_text")
+    save_cleaned_data(df, filename="clean_data.csv")

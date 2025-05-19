@@ -1,6 +1,68 @@
-*.pyc
+# ─── Python Bytecode ─────────────────────────────
 __pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+
+# ─── Virtual Environments ────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ─── Jupyter Notebooks ───────────────────────────
+.ipynb_checkpoints/
+
+# ─── VS Code Settings ────────────────────────────
+.vscode/
+
+# ─── OS/System Files ─────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Environment Configs ─────────────────────────
 .env
+
+# ─── Logs ────────────────────────────────────────
+*.log
+outputs/logs/
+
+# ─── Data Files ──────────────────────────────────
+data/raw/
+data/processed/
+data/external/
+data/reduced/
+
+# ─── Model Artifacts ─────────────────────────────
+models/
 *.pkl
-outputs/
+*.joblib
+*.h5
+
+# ─── Streamlit Cache ─────────────────────────────
+.streamlit/
+dashboard/.streamlit/
+dashboard/__pycache__/
+
+# ─── Cloud & API ─────────────────────────────────
+api/__pycache__/
+cloud/__pycache__/
+
+# ─── Tests & Coverage ────────────────────────────
+.pytest_cache/
+.coverage
+.cache/
+htmlcov/
+coverage.xml
+
+# ─── Mypy Type Check ─────────────────────────────
+.mypy_cache/
+.dmypy.json
+
+# ─── IDE Configs ─────────────────────────────────
+.idea/
+
+# ─── Docs / Temp Files ───────────────────────────
+*.doc
 *.docx
+*.tmp

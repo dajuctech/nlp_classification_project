@@ -33,3 +33,20 @@ def generate_wordcloud(text_series, save_path="outputs/figures/wordcloud.png"):
     plt.savefig(save_path)
     plt.close()
     print(f"✅ Word cloud saved to {save_path}")
+
+if __name__ == "__main__":
+    from src.evaluate import print_classification_metrics, plot_confusion_matrix
+    from sklearn.metrics import accuracy_score
+    import joblib
+
+    model = joblib.load("models/final_model.pkl")
+    vectorizer = joblib.load("models/vectorizer.pkl")
+
+    from src.data_loader import load_raw_data
+    df = load_raw_data("clean_data.csv")
+    X = vectorizer.transform(df["cleaned_text"])
+    y_true = df["label"]
+    y_pred = model.predict(X)
+
+    print_classification_metrics(y_true, y_pred)
+    plot_confusion_matrix(y_true, y_pred)
