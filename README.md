@@ -51,7 +51,7 @@ NLP_CLASSIFICATION_PROJECT/
 
 ## 🛠️ Setup Instructions
 
-\`\`\`bash
+```bash
 # Clone the repository
 git clone https://github.com/your-username/nlp-classification-project.git
 cd nlp-classification-project
@@ -62,7 +62,7 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
-\`\`\`
+```
 
 ---
 
@@ -70,15 +70,15 @@ pip install -r requirements.txt
 
 ### API (FastAPI or Flask)
 
-\`\`\`bash
+```bash
 python api/app.py
-\`\`\`
+```
 
 ### Streamlit Dashboard
 
-\`\`\`bash
+```bash
 streamlit run dashboard/streamlit_app.py
-\`\`\`
+```
 
 ---
 
@@ -86,9 +86,9 @@ streamlit run dashboard/streamlit_app.py
 
 Deployment notebooks are available under the \`cloud/\` directory:
 
-- **Azure ML**: \`azure_ml_deploy.ipynb\`
-- **AWS SageMaker**: \`aws_sagemaker.ipynb\`
-- **GCP Vertex AI**: \`gcp_vertex_ai.ipynb\`
+- **Azure ML**: `azure_ml_deploy.ipynb`
+- **AWS SageMaker**: `aws_sagemaker.ipynb`
+- **GCP Vertex AI**: `gcp_vertex_ai.ipynb`
 
 Each notebook contains code to register and deploy the model on the respective platform.
 
