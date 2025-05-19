@@ -11,7 +11,7 @@ COPY . .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# ✅ Download required NLTK resources
+# ✅ Download required NLTK data
 RUN python -m nltk.downloader stopwords punkt wordnet omw-1.4
 
 # Expose port 8000 (default for Uvicorn)

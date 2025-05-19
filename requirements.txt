@@ -1,14 +1,26 @@
+# Core ML & NLP
 pandas
 numpy
 scikit-learn
 nltk
 spacy
-matplotlib
-seaborn
+gensim
+imbalanced-learn
 contractions
 emoji
 pyspellchecker
-imbalanced-learn
+
+# Visualization
+matplotlib
+seaborn
 wordcloud
-gensim
-flask
+
+# API
+fastapi
+uvicorn
+
+# Web App
+streamlit
+
+# Utility
+joblib
