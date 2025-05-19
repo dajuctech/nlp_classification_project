@@ -30,6 +30,9 @@ def train_pipeline(input_path="data/processed/clean_data.csv", model_name="SVM")
     label_encoder = LabelEncoder()
     y = label_encoder.fit_transform(df["label"])
 
+    # ✅ Save the LabelEncoder for use in evaluation and Streamlit
+    dump(label_encoder, "models/label_encoder.pkl")
+
     # Balance classes
     X_resampled, y_resampled = SMOTE(random_state=100).fit_resample(X, y)
 
@@ -47,7 +50,7 @@ def train_pipeline(input_path="data/processed/clean_data.csv", model_name="SVM")
 
     # Save model and vectorizer
     dump(model, "models/final_model.pkl")
-    dump(vectorizer, "models/vectorizer.pkl")  # ✅ Save vectorizer for Streamlit
+    dump(vectorizer, "models/vectorizer.pkl")
     print("✅ Model saved to models/final_model.pkl")
     print("✅ Vectorizer saved to models/vectorizer.pkl")
 

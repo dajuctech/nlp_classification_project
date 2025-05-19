@@ -20,8 +20,10 @@ train_pipeline(model_name="SVM")  # Change to 'Voting', 'LogReg', etc. if desire
 print("📈 STEP 4: Evaluating the model...")
 model = joblib.load("models/final_model.pkl")
 vectorizer = joblib.load("models/vectorizer.pkl")
+label_encoder = joblib.load("models/label_encoder.pkl")  # ✅ Load label encoder
+
 X = vectorizer.transform(df["cleaned_text"])
-y = df["label"]
+y = label_encoder.transform(df["label"])  # ✅ Encode labels to match model training
 y_pred = model.predict(X)
 
 print_classification_metrics(y, y_pred)
