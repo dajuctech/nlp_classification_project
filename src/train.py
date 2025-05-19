@@ -1,19 +1,50 @@
-# Training logic
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
-from src.data_loader import load_data
-from src.preprocessing import clean_text
-from src.model import build_model
+# src/train.py
+
 import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.preprocessing import LabelEncoder
+from imblearn.over_sampling import SMOTE
+from joblib import dump
 
-def train_pipeline(data_path, text_col='text', label_col='label'):
-    df = load_data(data_path)
-    df[text_col] = df[text_col].astype(str).apply(clean_text)
-    X_train, X_test, y_train, y_test = train_test_split(df[text_col], df[label_col], test_size=0.2, random_state=42)
+from src.model import get_models
+from src.preprocessing import preprocess_pipeline
 
-    model = build_model()
+def train_pipeline(input_path="data/processed/clean_data.csv", model_name="SVM"):
+    # Load data
+    df = pd.read_csv(input_path)
+    
+    # Optional: preprocess if not already done
+    if 'cleaned_text' not in df.columns:
+        df = preprocess_pipeline(df, input_col="tweet")
+
+    # Vectorization
+    vectorizer = TfidfVectorizer(max_features=5000)
+    X = vectorizer.fit_transform(df["cleaned_text"])
+    
+    # Encode labels
+    label_encoder = LabelEncoder()
+    y = label_encoder.fit_transform(df["label"])
+
+    # Balance classes
+    X_resampled, y_resampled = SMOTE(random_state=100).fit_resample(X, y)
+
+    # Train/test split
+    X_train, X_val, y_train, y_val = train_test_split(X_resampled, y_resampled, test_size=0.3, random_state=100)
+
+    # Get model
+    model = get_models()[model_name]
     model.fit(X_train, y_train)
-    preds = model.predict(X_test)
-    print(classification_report(y_test, preds))
 
-    return model
+    # Evaluate
+    y_pred = model.predict(X_val)
+    print(f"\nAccuracy: {accuracy_score(y_val, y_pred):.4f}")
+    print("\nClassification Report:\n", classification_report(y_val, y_pred))
+
+    # Save model
+    dump(model, "models/final_model.pkl")
+    print("✅ Model saved to models/final_model.pkl")
+
+if __name__ == "__main__":
+    train_pipeline()
