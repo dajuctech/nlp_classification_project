@@ -1,14 +1,18 @@
-# api/Dockerfile
-
+# Use official Python image
 FROM python:3.10
 
+# Set working directory inside the container
 WORKDIR /app
 
-COPY ../requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy all project files into the container
+COPY . .
 
-COPY ../src ./src
-COPY ../models ./models
-COPY ./app.py .
+# Install dependencies
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Expose port 8000 (default for Uvicorn)
+EXPOSE 8000
+
+# Run the FastAPI server
+CMD ["uvicorn", "api.app:app", "--host", "0.0.0.0", "--port", "8000"]
